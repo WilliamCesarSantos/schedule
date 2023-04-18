@@ -44,7 +44,7 @@ public class TaskService {
                         }
                 ).orElseThrow(ResourceNotFoundException::new);
         canEdit(inDatabase);
-        this.updateCloseAt(task, task.getClosedAt());
+        this.fillCloseAt(task, task.getClosedAt());
         return this.repository.save(task);
     }
 
@@ -54,12 +54,10 @@ public class TaskService {
         }
     }
 
-    private void updateCloseAt(final Task task, final LocalDate closedAt) {
+    private void fillCloseAt(final Task task, final LocalDate closedAt) {
         if (task.getStatus() == TaskStatus.CLOSE) {
             final LocalDate newClosedAt = Optional.ofNullable(closedAt).orElse(LocalDate.now());
             task.setClosedAt(newClosedAt);
-        } else if (task.getStatus() == TaskStatus.OPEN) {
-            task.setClosedAt(null);
         }
     }
 }

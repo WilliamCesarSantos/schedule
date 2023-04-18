@@ -33,7 +33,6 @@ public class UserController {
     @GetMapping("/create")
     public String create(Model model) {
         model.addAttribute("user", new User());
-        model.addAttribute("in_edit", false);
         return "user/form";
     }
 
@@ -44,7 +43,6 @@ public class UserController {
     ) {
         User user = service.findById(id).get();
         model.addAttribute("user", user);
-        model.addAttribute("in_edit", true);
         return "user/form";
     }
 
@@ -74,7 +72,11 @@ public class UserController {
         String key = I18nUtils.recoveryKey(ex.getClass());
         return new FieldError(
                 "user",
-                "username",
+                ex.getRejectField(),
+                ex.getRejectedValue(),
+                false,
+                null,
+                null,
                 messages.getMessage(
                         key, null, request.getLocale()
                 )

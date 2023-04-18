@@ -32,7 +32,7 @@
 
                     <div class="form-group">
                         <label class="control-label" for="username" th:text="#{user.username}" />
-                        <input type="text" class="form-control" id="username" th:disabled="${in_edit}" th:field="*{username}">
+                        <input type="text" class="form-control" id="username" th:readonly="${user.id != null} ? 'readonly' : null" th:field="*{username}">
                         <p th:if="${#fields.hasErrors('username')}" th:errorclass="user-form-error" th:errors="*{username}"/>
                     </div>
 

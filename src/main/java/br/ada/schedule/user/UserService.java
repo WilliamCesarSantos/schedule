@@ -38,7 +38,7 @@ public class UserService {
         final User inDatabase = findById(user.getId())
                 .orElseThrow(ResourceNotFoundException::new);
         if (!inDatabase.getUsername().equalsIgnoreCase(user.getUsername())) {
-            throw new UsernameChangedException();
+            throw new UsernameChangedException(user, user.getUsername());
         }
         return repository.save(user);
     }
@@ -46,7 +46,7 @@ public class UserService {
     private void validatedUsernameInUse(String username) throws UserException {
         final User user = repository.findByUsername(username).orElse(null);
         if (user != null) {
-            throw new UsernameInUseException();
+            throw new UsernameInUseException(user, user.getUsername());
         }
     }
 
