@@ -1,11 +1,8 @@
 package br.ada.schedule.task;
 
 import br.ada.schedule.user.User;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDate;
 
@@ -21,14 +18,6 @@ public class Task {
     private String title;
 
     private String description;
-
-    @JsonIgnore
-    @CreationTimestamp
-    private LocalDate createdAt;
-
-    @JsonIgnore
-    @UpdateTimestamp
-    private LocalDate updatedAt;
 
     private LocalDate closedAt;
 
@@ -61,22 +50,6 @@ public class Task {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public LocalDate getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDate createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDate getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDate updatedAt) {
-        this.updatedAt = updatedAt;
     }
 
     public LocalDate getClosedAt() {

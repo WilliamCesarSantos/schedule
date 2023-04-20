@@ -38,11 +38,7 @@ public class TaskService {
 
     public Task update(@Valid final Task task) {
         Task inDatabase = findById(task.getId())
-                .map(it -> {
-                            task.setCreatedAt(it.getCreatedAt());
-                            return it;
-                        }
-                ).orElseThrow(ResourceNotFoundException::new);
+                .orElseThrow(ResourceNotFoundException::new);
         canEdit(inDatabase);
         this.fillCloseAt(task, task.getClosedAt());
         return this.repository.save(task);
